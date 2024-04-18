@@ -1,0 +1,43 @@
+<dw-tab-bar-header>
+  @for (tab of tabs; track $index) {
+    <div
+      class="dw-tab-bar"
+      [attr.tabIndex]="$index"
+      [attr.selected]="selectedIndex === $index"
+      [class.dw-tab-active]="selectedIndex === $index"
+    >
+      <span class="dw-tab-bar-header-content">
+        <span class="dw-tab-bar-header-label">
+          <!-- {{ log(tab.tabBarHeader) }} -->
+          <!-- @if (tab.details && tab.details.length > 0) {
+            <ng-container>
+              <ng-template *ngTemplateOutlet="tab.details.first" />
+            </ng-container>
+          } @else {
+            {{ tab.label }}
+          } -->
+          @if (tab.templateLabel) {
+            <ng-container>
+              <ng-template *ngTemplateOutlet="tab.templateLabel.templateRef" />
+            </ng-container>
+          } @else {
+            {{ tab.label }}
+          }
+        </span>
+      </span>
+    </div>
+  }
+</dw-tab-bar-header>
+<div class="dw-tab-bar-body-container">
+  @for (tab of tabs; track $index) {
+    <div class="dw-tab-bar-body-content">
+      <ng-template [ngTemplateOutlet]="tab.contentTemplate" />
+    </div>
+  }
+</div>
+
+<!-- @for (item of tabs; track $index) {
+  <dw-tab-bar-tab>
+    <ng-container *ngTemplateOutlet="item.contentTemplate" />
+  </dw-tab-bar-tab>
+} -->
